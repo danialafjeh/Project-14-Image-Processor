@@ -608,6 +608,8 @@ The interface also provides:
 * Return to the main page
 
 The result interface automatically monitors the processing job and updates the page when processing finishes.
+The frontend is based on a ready-made website template from [Tooplate.com](https://www.tooplate.com/).
+The template was modified and adapted to fit the requirements, functionality, structure, and visual needs of this project.
 
 ---
 
@@ -703,12 +705,3 @@ The architecture intentionally keeps the business logic simple so that the main 
 
 The image processing operations provide enough real work for the background tasks without introducing unnecessary domain complexity.
 The main objective was not simply to build an image manipulation website, but to understand how **Celery can be integrated into a Django application and used to perform real background work**.
-
----
-
-## Frontend Template Attribution
-
-The frontend is based on a ready-made website template from [Tooplate](https://www.tooplate.com/).
-
-The template was modified and adapted to fit the requirements, functionality, structure, and visual needs of this project.
-
