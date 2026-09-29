@@ -1,0 +1,229 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div id="tm-bg"></div>
+<div id="tm-wrap">
+    <div class="tm-main-content">
+        <div class="container tm-site-header-container">
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-6 col-md-col-xl-6 mb-md-0 mb-sm-4 mb-4 tm-site-header-col">
+                    <div class="tm-site-header">
+                        <h1 class="mb-6 text-left tm-copyright-text"><strong>Image Processor</strong></h1>
+                        <img src="{% static 'img/underline.png' %}" class="img-fluid mb-4">
+                        <p class="text-left">A reliable and straightforward platform for processing images with tools
+                            for resizing, format conversion, grayscale conversion, and compression.</p>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                    <div class="content">
+                        <div class="grid">
+                            <div class="grid__item" id="home-link">
+                                <div class="product">
+                                    <div class="tm-nav-link">
+                                        <i class="fas fa-home fa-3x tm-nav-icon"></i>
+                                        <span class="tm-nav-text">Resize</span>
+                                        <div class="product__bg"></div>
+                                    </div>
+                                    <div class="product__description">
+                                        <div class="p-sm-4 p-2">
+                                            <div class="row mb-3">
+                                                <div class="col-12">
+                                                    {% if messages %}
+                                                       {% for message in messages %}
+                                                            {% if "resize" in message.tags %}
+                                                               <div class="alert alert-danger">
+                                                                   {{ message }}
+                                                               </div>
+                                                            {% endif %}
+                                                       {% endfor %}
+                                                    {% endif %}
+                                                    <hr>
+                                                    <h2 class="tm-page-title">Resize</h2>
+                                                </div>
+                                            </div>
+                                            <div class="row tm-reverse-sm">
+                                                <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                                                    <p>Resize your image to the exact dimensions you need.
+                                                    Set the desired width and height in pixels, then upload your image.
+                                                    </p>
+                                                    <hr>
+                                                    <form action="{% url 'resize' %}" method="POST" class="contact-form" enctype="multipart/form-data">
+                                                        {% csrf_token %}
+                                                        <div class="form-group">
+                                                            <input type="file" id="resize_image" name="image" class="form-control" accept="image/*" required />
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                                                                <input type="number" id="resize_width" name="width" class="form-control" placeholder="Width (px)" min="1" required />
+                                                            </div>
+                                                            <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                                                                <input type="number" id="resize_height" name="height" class="form-control" placeholder="Height (px)" min="1" required />
+                                                            </div>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary tm-btn-submit">Resize</button>
+                                                    </form>
+                                                </div>
+                                                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 mb-lg-0 mb-sm-4 mb-4">
+                                                    <img src="{% static 'img/resize.jpg' %}" class="img-fluid">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid__item" id="team-link">
+                                <div class="product">
+                                    <div class="tm-nav-link">
+                                        <i class="fas fa-home fa-3x tm-nav-icon"></i>
+                                        <span class="tm-nav-text">Convert</span>
+                                        <div class="product__bg"></div>
+                                    </div>
+                                    <div class="product__description">
+                                        <div class="p-sm-4 p-2">
+                                            <div class="row mb-3">
+                                                <div class="col-12">
+                                                    {% if messages %}
+                                                       {% for message in messages %}
+                                                           {% if "convert" in message.tags %}
+                                                               <div class="alert alert-danger">
+                                                                   {{ message }}
+                                                               </div>
+                                                           {% endif %}
+                                                       {% endfor %}
+                                                    {% endif %}
+                                                    <h2 class="tm-page-title">Convert</h2>
+                                                </div>
+                                            </div>
+                                            <div class="row tm-reverse-sm">
+                                                <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                                                    <p>
+                                                    Convert your image to a different file format with ease.
+                                                    Choose between JPEG, PNG, and WebP as your desired output format.
+                                                    </p>
+                                                    <hr>
+                                                    <form action="{% url 'convert' %}" method="POST" class="contact-form" enctype="multipart/form-data">
+                                                        {% csrf_token %}
+                                                        <div class="form-group">
+                                                            <input type="file" id="convert_image" name="image" class="form-control" accept="image/*" required />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <select id="convert_format" name="format" class="form-control w-100" required style="width: 100%; height: 50px; box-sizing: border-box;">
+                                                                <option value="" selected disabled>Output Format</option>
+                                                                <option value="jpeg">JPEG</option>
+                                                                <option value="png">PNG</option>
+                                                                <option value="webp">WebP</option>
+                                                            </select>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary tm-btn-submit">Convert</button>
+                                                    </form>
+                                                </div>
+                                                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 mb-lg-0 mb-sm-4 mb-4">
+                                                    <img src="{% static 'img/convert.jpg' %}" class="img-fluid">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid__item">
+                                <div class="product">
+                                    <div class="tm-nav-link">
+                                        <i class="fas fa-home fa-3x tm-nav-icon"></i>
+                                        <span class="tm-nav-text">Grayscale</span>
+                                        <div class="product__bg"></div>
+                                    </div>
+                                    <div class="product__description">
+                                        <div class="p-sm-4 p-2">
+                                            <div class="row mb-3">
+                                                <div class="col-12">
+                                                    {% if messages %}
+                                                       {% for message in messages %}
+                                                           {% if "grayscale" in message.tags %}
+                                                               <div class="alert alert-danger">
+                                                                   {{ message }}
+                                                               </div>
+                                                           {% endif %}
+                                                       {% endfor %}
+                                                    {% endif %}
+                                                    <h2 class="tm-page-title">Grayscale</h2>
+                                                </div>
+                                            </div>
+                                            <div class="row tm-reverse-sm">
+                                                <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                                                    <p>
+                                                    Turn your image into a clean grayscale version.
+                                                    Upload your image and let the processor handle the conversion automatically.
+                                                    </p>
+                                                    <form action="{% url 'grayscale' %}" method="POST" class="contact-form" enctype="multipart/form-data">
+                                                        {% csrf_token %}
+                                                        <div class="form-group">
+                                                            <input type="file" id="grayscale_image" name="image" class="form-control" accept="image/*" required />
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary tm-btn-submit">Convert to Grayscale</button>
+                                                    </form>
+                                                </div>
+                                                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 mb-lg-0 mb-sm-4 mb-4">
+                                                    <img src="{% static 'img/Grayscale.jpg' %}" class="img-fluid">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid__item">
+                                <div class="product">
+                                    <div class="tm-nav-link">
+                                        <i class="fas fa-home fa-3x tm-nav-icon"></i>
+                                        <span class="tm-nav-text">Compress</span>
+                                        <div class="product__bg"></div>
+                                    </div>
+                                    <div class="product__description">
+                                        <div class="p-sm-4 p-2">
+                                            <div class="row mb-3">
+                                                <div class="col-12">
+                                                    {% if messages %}
+                                                       {% for message in messages %}
+                                                           {% if "compress" in message.tags %}
+                                                               <div class="alert alert-danger">
+                                                                   {{ message }}
+                                                               </div>
+                                                           {% endif %}
+                                                       {% endfor %}
+                                                    {% endif %}
+                                                    <h2 class="tm-page-title">Compress</h2>
+                                                </div>
+                                            </div>
+                                            <div class="row tm-reverse-sm">
+                                                <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                                                    <p>
+                                                    Reduce your image file size by choosing a quality level from 1 to 100.
+                                                    1 means stronger compression and lower quality, while 100 means weaker compression and higher quality. Higher values usually produce larger files.
+                                                    </p>
+                                                    <form action="{% url 'compress' %}" method="POST" class="contact-form" enctype="multipart/form-data">
+                                                        {% csrf_token %}
+                                                        <div class="form-group">
+                                                            <input type="file" id="compress_image" name="image" class="form-control" accept="image/*" required />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="number" id="compress_quality" name="quality" class="form-control" placeholder="Quality (1-100)" min="1" max="100" required />
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary tm-btn-submit">Compress</button>
+                                                    </form>
+                                                </div>
+                                                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 mb-lg-0 mb-sm-4 mb-4">
+                                                    <img src="{% static 'img/compress.jpg' %}" class="img-fluid">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

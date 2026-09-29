@@ -1,0 +1,15 @@
+denv/
+env/
+venv/
+.venv/
+__pycache__/
+*.pyc
+.git/
+.gitignore
+.env
+.vscode/
+media/
+Project14Screenshot01.png
+Project14Screenshot02.png
+Project14Screenshot03.png
+Project14Screenshot04.png

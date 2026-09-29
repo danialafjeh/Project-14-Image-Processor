@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div id="tm-bg"></div>
+<div id="tm-wrap">
+    <div class="tm-main-content">
+        <div class="container tm-site-header-container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="tm-site-header text-center">
+                        <h1 class="mb-6 tm-copyright-text">
+                            <strong>Image Processor</strong>
+                        </h1>
+                        <img src="{% static 'img/underline.png' %}" class="img-fluid mb-6">
+                        <p class="text-left">
+                            <h2 class="tm-page-title">Image Processing</h2>
+                            <hr>
+                            <div id="processing-content">
+                                <h4>
+                                Processing...
+                                <p id="status-message">Your image is being processed.</p>
+                                </h4>
+                                
+                            </div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+const statusUrl = "{% url 'processing_status' job.id %}";
+async function checkStatus() {
+    const response = await fetch(statusUrl);
+    const data = await response.json();
+    const content = document.getElementById("processing-content");
+    if (data.status === "pending") {
+        content.innerHTML = `
+            <h4>Your image is waiting to be processed.</h4>
+        `;
+
+    }
+    else if (data.status === "processing") {
+        content.innerHTML = `
+            <h4>Your image is being processed. Please wait...</h4>
+        `;
+
+    }
+    else if (data.status === "completed") {
+        content.innerHTML = `
+            <h4>Your image is ready!</h4>
+            <br>
+            <a
+            href="${data.result_url}"
+            download
+            class="btn btn-primary tm-btn-submit"
+            >
+            Download
+            </a>
+            <br><br>
+            <a href="{% url 'home' %}"
+            class="btn btn-primary tm-btn-submit"
+            >
+            Back to Home
+            </a>
+        `;
+
+        return;
+
+    }
+    else if (data.status === "failed") {
+        content.innerHTML = `
+            <h4>Processing Failed</h4>
+            <p>${data.error}</p>
+        `;
+        return;
+    }
+    setTimeout(checkStatus, 2000);
+}
+
+checkStatus();
+</script>
+{% endblock %}
